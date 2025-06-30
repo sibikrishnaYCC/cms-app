@@ -27,19 +27,19 @@ export default function Cards({ title, description, width, height, x, y, name })
     };
 
     // Responsive card height
-    const cardHeightClass = windowWidth <= 640 ? "h-32" : "h-44";
+    const cardHeightClass = windowWidth <= 640 ? "h-28" : "h-44";
 
     // Responsive description width
     let descWidth = "w-[235px]";
     if (windowWidth <= 380) descWidth = "w-[160px]";
-    else if (windowWidth <= 470) descWidth = "w-[180px]";
+    else if (windowWidth <= 470) descWidth = "w-[100px]";
     else if (windowWidth <= 640) descWidth = "w-[200px]";
 
     return (
         <>
             {/* Main Card Container */}
             <div
-                className={`w-[420px] ${cardHeightClass} border border-gray-400/50 rounded-md shadow-md flex flex-col px-7 py-5 relative overflow-hidden flex-grow`}
+                className={`w-[420px] max-lg:w-[350px] max-md:w-[250px] max-sm:w-[190px] ${cardHeightClass} flex-grow border border-gray-400/50 rounded-md shadow-md flex flex-col px-7 py-5 max-sm:px-5 max-sm:py-4 relative overflow-hidden`}
             >
                 {/* Title */}
                 <h1 className="font-semibold text-[20px] sm:text-[22px] cards-title">
@@ -59,21 +59,32 @@ export default function Cards({ title, description, width, height, x, y, name })
 
             {/* Font Media Queries */}
             <style>{`
-                @media (max-width: 470px) {
+
+                @media (max-width: 640px) {
                     .cards-title {
-                        font-size: 18px !important;
+                        font-size: 14px !important;
                     }
                     .cards-desc {
-                        font-size: 14px !important;
+                        font-size: 10px !important;
+                    }
+                }
+                
+                @media (max-width: 470px) {
+                
+                    .cards-title {
+                        font-size: 12px !important;
+                    }
+                    .cards-desc {
+                        font-size: 8px !important;
                     }
                 }
 
                 @media (max-width: 380px) {
                     .cards-title {
-                        font-size: 17px !important;
+                        font-size: 10px !important;
                     }
                     .cards-desc {
-                        font-size: 13px !important;
+                        font-size: 8px !important;
                     }
                 }
             `}</style>

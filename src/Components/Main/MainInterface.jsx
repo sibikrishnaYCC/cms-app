@@ -42,7 +42,7 @@ export default function MainInterface() {
     }
 
     return (
-        <div className="flex flex-wrap gap-8 p-20 justify-center items-center">
+        <div className="flex flex-wrap p-20 max-sm:py-20 max-sm:p-2 justify-center gap-8 max-sm:gap-4 items-center">
             {assets.map((asset, index) => (
                 <Cards
                     key={index}
