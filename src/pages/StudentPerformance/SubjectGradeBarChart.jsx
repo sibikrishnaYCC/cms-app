@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card.jsx";
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ChartContainer,
