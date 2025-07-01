@@ -15,7 +15,7 @@ const assets = [
     y: -30,
     title: "Course File",
     description: "PDF, Sheets, Docx, Images & more",
-    route: "/course-file"
+    route: "CourseFile"              // changed to page key format
   },
   {
     name: paper,
@@ -25,7 +25,7 @@ const assets = [
     y: -40,
     title: "Question & Answer",
     description: "An image representing a question and answer sheet.",
-    route: "/question-answer"
+    route: "QuestionAnswer"
   },
   {
     name: timetable,
@@ -35,7 +35,7 @@ const assets = [
     y: -50,
     title: "TimeTable",
     description: "A visual representation of a class or student's timetable.",
-    route: "/timetable"
+    route: "TimeTable"
   },
   {
     name: marksheet,
@@ -45,7 +45,7 @@ const assets = [
     y: -25,
     title: "Marksheet",
     description: "A student's academic performance marksheet.",
-    route: "/marksheet"
+    route: "Marksheet"
   },
   {
     name: studentdetails,
@@ -55,7 +55,7 @@ const assets = [
     y: -25,
     title: "Student Details",
     description: "Detailed personal and academic information of a student.",
-    route: "/student-details"
+    route: "StudentDetails"
   },
   {
     name: graph,
@@ -65,7 +65,7 @@ const assets = [
     y: -20,
     title: "Student Performance",
     description: "Graphical representation of a student's academic performance.",
-    route: "/student-performance"
+    route: "StudentPerformance"
   },
   {
     name: percentage,
@@ -75,7 +75,7 @@ const assets = [
     y: -25,
     title: "Attendance Percentage",
     description: "Visual summary of attendance percentage statistics.",
-    route: "/attendance-percentage"
+    route: "AttendancePercentage"
   }
 ];
 

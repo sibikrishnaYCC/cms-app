@@ -10,7 +10,7 @@ export default function Cards({ title, description, width, height, x, y, name, o
   }, []);
 
   let scale = 1;
-  if (windowWidth <= 380) scale = 1.5;
+  if (windowWidth <= 380) scale = 2.5;
   else if (windowWidth <= 470) scale = 2;
   else if (windowWidth <= 640) scale = 2.3;
   else if (windowWidth <= 840) scale = 1.8;
@@ -23,7 +23,11 @@ export default function Cards({ title, description, width, height, x, y, name, o
     transition: "all 0.5s ease-in-out",
   };
 
-  const cardHeightClass = windowWidth <= 890 ? "h-28" : "h-44";
+  const cardHeightClass =
+  windowWidth <= 380 ? "h-20" :
+  windowWidth <= 890 ? "h-28" :
+  "h-44";
+
 
   let descWidth = "w-[235px]";
   if (windowWidth <= 380) descWidth = "w-[50px]";
@@ -89,6 +93,11 @@ export default function Cards({ title, description, width, height, x, y, name, o
         @media (max-width: 331px) {
           .card-width { width: 140px !important; }
         }
+        
+        @media (max-width: 307px) {
+          .card-width { width: 130px !important; }
+        }
+
       `}</style>
     </>
   );
