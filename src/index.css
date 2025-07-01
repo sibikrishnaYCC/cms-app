@@ -1,6 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
+
+:root {
+  --text-color: #1f2937;
+  --text-muted: #9ca3af;
+  --text-muted-hover: #4b5563;
+  --border-color: rgba(156, 163, 175, 0.3);
+  --border-hover: rgba(107, 114, 128, 0.4);
+  --ring-color: #3b82f6;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a; /* Deeper dark blue-gray background */
+  --text-color: #f1f5f9; /* Lighter text for readability */
+  --text-muted: #64748b; /* Softer muted text */
+  --text-muted-hover: #cbd5e1; /* Hover state with a brighter contrast */
+  
+  --border-color: rgba(100, 116, 139, 0.25); /* Softer border */
+  --border-hover: rgba(203, 213, 225, 0.4); /* Brighter on hover */
+
+  --ring-color: #3b82f6; /* Blue ring matches primary tone */
+  
+  --shadow: rgba(15, 23, 42, 0.2); /* Subtle shadows */
+  --shadow-hover: rgba(15, 23, 42, 0.35);
+}
+
+
 body {
+      color: var(--text-color);
+      background-color: var(--bg);
       font-family: "Inter", sans-serif;
+      -webkit-font-smoothing: antialiased;
 }     

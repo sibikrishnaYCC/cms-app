@@ -1,56 +1,89 @@
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
-export default function LoopingDistortedTitle() {
+/**
+ * @param {boolean} isAnimating - whether the animation is running
+ */
+export default function LoopingDistortedTitle({ isAnimating = true }) {
   const titleRef = useRef(null);
+  const tlRef = useRef(null); // Store the timeline for control
 
   useEffect(() => {
     const title = titleRef.current;
-
     if (!title) return;
 
-    // Create a looping timeline
-    const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+    // Create the timeline once
+    const tl = gsap.timeline({
+      paused: !isAnimating,
+      repeat: -1,
+      repeatDelay: 2,
+    });
 
-    tl.to('.distort feDisplacementMap', {
+    tl.to(".distort feDisplacementMap", {
       duration: 1,
       attr: { scale: 100 },
-      ease: 'circ.out'
+      ease: "circ.out",
     })
-      .to('.distort feTurbulence', {
-        duration: 1,
-        attr: { baseFrequency: '2.08 .08' },
-        ease: 'circ.out'
-      }, '<') // sync start with previous
-      .to(title, {
-        duration: 1,
-        fontVariationSettings: "'wght' 650",
-        ease: 'back.out'
-      }, '<')
-      .to('.distort feDisplacementMap', {
+      .to(
+        ".distort feTurbulence",
+        {
+          duration: 1,
+          attr: { baseFrequency: "2.08 .08" },
+          ease: "circ.out",
+        },
+        "<"
+      )
+      .to(
+        title,
+        {
+          duration: 1,
+          fontVariationSettings: "'wght' 650",
+          ease: "back.out",
+        },
+        "<"
+      )
+      .to(".distort feDisplacementMap", {
         duration: 1,
         attr: { scale: 0 },
-        ease: 'circ.out'
-      }, '+=1') // wait 1s before reversing
-      .to('.distort feTurbulence', {
-        duration: 1,
-        attr: { baseFrequency: '2.01 .01' },
-        ease: 'circ.out'
-      }, '<')
-      .to(title, {
-        duration: 1,
-        fontVariationSettings: "'wght' 700",
-        ease: 'back.out'
-      }, '<');
+        ease: "circ.out",
+      }, "+=1")
+      .to(
+        ".distort feTurbulence",
+        {
+          duration: 1,
+          attr: { baseFrequency: "2.01 .01" },
+          ease: "circ.out",
+        },
+        "<"
+      )
+      .to(
+        title,
+        {
+          duration: 1,
+          fontVariationSettings: "'wght' 700",
+          ease: "back.out",
+        },
+        "<"
+      );
 
-    return () => {
-      tl.kill(); // clean up on unmount
-    };
+    tlRef.current = tl;
+
+    return () => tl.kill(); // Clean up on unmount
   }, []);
+
+  // React to animation toggle
+  useEffect(() => {
+    if (!tlRef.current) return;
+    isAnimating ? tlRef.current.play() : tlRef.current.pause();
+  }, [isAnimating]);
 
   return (
     <>
-      <svg className="distort" style={{ position: 'absolute', width: 0, height: 0, left: '-9999px' }}>
+      {/* Hidden filter defs */}
+      <svg
+        className="distort"
+        style={{ position: "absolute", width: 0, height: 0, left: "-9999px" }}
+      >
         <filter id="distortionFilter">
           <feTurbulence
             type="fractalNoise"
@@ -70,13 +103,14 @@ export default function LoopingDistortedTitle() {
         </filter>
       </svg>
 
+      {/* The animated title */}
       <h1
         ref={titleRef}
         style={{
-          filter: 'url(#distortionFilter)',
+          filter: "url(#distortionFilter)",
           fontVariationSettings: "'wght' 700'",
         }}
-        className="text-7xl font-bold text-gray-800 mb-4 max-sm:text-5xl"
+        className="text-7xl font-bold py-2 max-sm:text-5xl"
       >
         Campus Core
       </h1>
