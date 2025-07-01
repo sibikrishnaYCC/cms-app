@@ -6,7 +6,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import useAuthStatus from './Authentication/useAuthCheck.jsx';
-import MainInterface from './components/Main/MainInterface.jsx';
+import MainInterface from './Components/Main/MainInterface.jsx';
 import LoginPage from './Authentication/LoginPage.jsx';
 import CourseFile from './pages/CourseFile/CourseFile.jsx';
 import QuestionAnswer from './pages/QuestionAnswer/QuestionAnswer.jsx';
