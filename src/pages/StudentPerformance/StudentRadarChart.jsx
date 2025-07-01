@@ -15,7 +15,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card";
+} from "@/Components/ui/card";
 
 // 🎯 Data: Subject comparison
 const subjectData = [

@@ -8,13 +8,13 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/card";
+import { Button } from "@/Components/ui/button";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/Components/ui/chart";
 import PreviousTestModal from "./PreviousTestModal.jsx";
 
 // 🗂️ Test data with grades
