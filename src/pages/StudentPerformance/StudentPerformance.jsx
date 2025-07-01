@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import GradesOverTimeChart from "./GradesOverTimeChart.jsx";
-// import SubjectGradeBarChart from "./SubjectGradeBarChart.jsx";
+import SubjectGradeBarChart from "./SubjectGradeBarChart.jsx";
 // import StudentRadarChart from "./StudentRadarChart.jsx";
 
 export default function StudentPerformance({ theme }) {
@@ -28,13 +28,13 @@ export default function StudentPerformance({ theme }) {
       </div>
 
       {/* Bar Chart Skeleton or Chart */}
-      {/* <div className="w-full max-w-2xl">
+      <div className="w-full max-w-2xl">
         {loading ? (
           <div className="w-full h-[320px] bg-gray-200 dark:bg-gray-800 rounded-lg animate-pulse" />
         ) : (
           <SubjectGradeBarChart theme={theme} />
         )}
-      </div> */}
+      </div>
 
       {/* Radar Chart Skeleton or Chart */}
       {/* <div className="w-full max-w-2xl">
