@@ -4,6 +4,7 @@ import { Search, X } from "lucide-react";
 import Cards from "../Interface/Cards";
 import assets from "../../assets/assets.js";
 import LoopingDistortedTitle from "../../Effects/LoopingDistortedTitle.jsx";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Subtle animated background of blurred gradient blobs
@@ -64,6 +65,8 @@ export default function MainInterface() {
   const [loaded, setLoaded] = useState(false);
   const [filter, setFilter] = useState("");
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     let loadedCount = 0;
 
@@ -115,7 +118,7 @@ export default function MainInterface() {
     <>
       <Background />
 
-      <div className="relative flex flex-col items-center gap-6 p-20 max-sm:py-20 max-sm:p-2">
+      <div className="relative flex flex-col items-center gap-6 py-16 px-20 max-sm:py-20 max-sm:p-2">
         {/* Enhanced search box */}
 
         <LoopingDistortedTitle />
@@ -169,6 +172,7 @@ export default function MainInterface() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <Cards
+                  onclick={() => navigate(asset.route)}
                   title={asset.title}
                   description={asset.description}
                   width={asset.width}

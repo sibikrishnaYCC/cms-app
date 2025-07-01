@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Cards({ title, description, width, height, x, y, name }) {
+export default function Cards({ title, description, width, height, x, y, name, onclick }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     // Detect screen size on mount and resize
@@ -42,6 +42,7 @@ export default function Cards({ title, description, width, height, x, y, name })
         <>
             {/* Main Card Container */}
             <div
+                onClick={onclick}
                 className={`transition-all duration-500 ease-in-out w-[420px] card-width max-lg:w-[350px] max-md:w-[250px] max-sm:w-[190px] ${cardHeightClass} flex-grow border border-gray-400/30 rounded-xl shadow-md hover:shadow-lg hover:scale-[1.03] hover:border-gray-500/40 flex flex-col px-7 py-5 max-sm:px-5 max-sm:py-4 relative overflow-hidden cursor-pointer transform`}
                 >
 
