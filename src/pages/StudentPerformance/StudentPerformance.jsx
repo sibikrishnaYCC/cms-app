@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import GradesOverTimeChart from "./GradesOverTimeChart.jsx";
 import SubjectGradeBarChart from "./SubjectGradeBarChart.jsx";
-import StudentRadarChart from "./SubjectPerformanceRadarChart.jsx";
+import StudentRadarChart from "./StudentRadarChart.jsx";
 
 export default function StudentPerformance({ theme }) {
   const [loading, setLoading] = useState(true);
