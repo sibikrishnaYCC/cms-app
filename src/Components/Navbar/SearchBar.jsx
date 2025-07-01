@@ -5,10 +5,10 @@ export default function SearchBar() {
   const [filter, setFilter] = useState("");
 
   return (
-    <div className="w-full px-4 sm:px-0">
-      <div className="relative w-full max-w-lg mx-auto">
+    <div className="w-full sm:px-0">
+      <div className="relative w-full px-1 sm:max-w-md  mx-auto">
         {/* Search icon */}
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--text-muted)] pointer-events-none" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--text-muted)] pointer-events-none" />
 
         {/* Clear button */}
         {filter && (
