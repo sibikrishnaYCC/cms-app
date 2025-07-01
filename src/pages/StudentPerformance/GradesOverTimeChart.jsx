@@ -9,19 +9,19 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card.jsx";
+} from "@/Components/ui/card.jsx";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart.jsx";
+} from "@/Components/ui/chart.jsx";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select.jsx";
+} from "@/Components/ui/select.jsx";
 
 // 🎯 All Grade Data
 const allChartData = [
@@ -71,11 +71,11 @@ export default function GradesOverTimeChart({ theme }) {
   const subText = theme === "dark" ? "text-gray-400" : "text-gray-600";
 
   return (
-<Card
-  className={`${cardBg} ${cardText} ${
-    theme === "dark" ? "border-gray-700" : "border-gray-300"
-  }`}
->
+    <Card
+      className={`${cardBg} ${cardText} ${
+        theme === "dark" ? "border-gray-700" : "border-gray-300"
+      }`}
+    >
       <CardHeader className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
         <div>
           <CardTitle>Grades Over Time</CardTitle>
@@ -86,11 +86,11 @@ export default function GradesOverTimeChart({ theme }) {
         <div className="flex gap-2">
           {/* Start Month Selector */}
           <Select value={startMonth} onValueChange={setStartMonth}>
-          <SelectTrigger
-            className={`w-[130px] border ${
-              theme === "dark" ? "border-gray-700" : "border-gray-300"
-            } focus:ring-0 focus:outline-none shadow-none`}
-          >
+            <SelectTrigger
+              className={`w-[130px] border ${
+                theme === "dark" ? "border-gray-700" : "border-gray-300"
+              } focus:ring-0 focus:outline-none shadow-none`}
+            >
               <SelectValue placeholder="Start Month" />
             </SelectTrigger>
             <SelectContent>
@@ -108,11 +108,11 @@ export default function GradesOverTimeChart({ theme }) {
 
           {/* End Month Selector */}
           <Select value={endMonth} onValueChange={setEndMonth}>
-          <SelectTrigger
-            className={`w-[130px] border ${
-              theme === "dark" ? "border-gray-700" : "border-gray-300"
-            } focus:ring-0 focus:outline-none shadow-none`}
-          >
+            <SelectTrigger
+              className={`w-[130px] border ${
+                theme === "dark" ? "border-gray-700" : "border-gray-300"
+              } focus:ring-0 focus:outline-none shadow-none`}
+            >
               <SelectValue placeholder="End Month" />
             </SelectTrigger>
             <SelectContent>
