@@ -115,16 +115,16 @@ export default function MainInterface() {
     <>
       <Background />
 
-      <div className="relative flex flex-col items-center gap-6 p-16 max-sm:py-20 max-sm:p-2">
-        {/* Title */}
+      <div className="relative flex flex-col items-center gap-6 p-20 max-sm:py-20 max-sm:p-2">
+        {/* Enhanced search box */}
+
         <LoopingDistortedTitle />
 
-        {/* Enhanced search box */}
-        <div className="relative w-full max-w-md ">
+        <div className="relative w-full max-w-md">
           {/* Left search icon */}
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
 
-          {/* Clear button */}
+          {/* Clear button */}  
           {filter && (
             <button
               type="button"
