@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Search, X } from "lucide-react";
 
-export default function SearchBar() {
-  const [filter, setFilter] = useState("");
+export default function SearchBar({ filter, setFilter }) {
 
   return (
     <div className="w-full sm:px-0">
