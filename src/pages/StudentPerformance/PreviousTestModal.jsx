@@ -5,10 +5,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog.jsx";
-import { ScrollArea } from "@/components/ui/scroll-area.jsx";
-import { Separator } from "@/components/ui/separator.jsx";
-import { Button } from "@/components/ui/button.jsx";
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 export default function PreviousTestModal({
   open,
