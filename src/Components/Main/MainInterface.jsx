@@ -6,6 +6,7 @@ import assets from "../../assets/assets.js";
 import LoopingDistortedTitle from "../../Effects/LoopingDistortedTitle.jsx";
 import TopNavBar from "../Navbar/TopNavBar.jsx";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../Navbar/SearchBar.jsx";
 
 function Background() {
   return (
@@ -34,7 +35,7 @@ export default function MainInterface() {
   const [filter, setFilter] = useState("");
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
   const navigate = useNavigate();
-  const [animate, setAnimate] = useState(true);
+  const [animate, setAnimate] = useState(false);
 
 
   useEffect(() => {
@@ -101,48 +102,10 @@ export default function MainInterface() {
        <LoopingDistortedTitle isAnimating={animate} />
 
 
-{/* Search bar starts here */}
-<div className="w-full sm:px-0">
-  <div className="relative w-full max-w-md mx-auto px-1 ">
-    {/* Search Icon */}
-    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--text-muted)] pointer-events-none" />
-
-    {/* Clear Button */}
-    {filter && (
-      <button
-        type="button"
-        onClick={() => setFilter("")}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-muted-hover)] transition"
-        aria-label="Clear"
-      >
-        <X className="h-5 w-5" />
-      </button>
-    )}
-
-    {/* Input */}
-    <input
-      type="text"
-      placeholder="Search"
-      value={filter}
-      onChange={(e) => setFilter(e.target.value)}
-      onKeyDown={(e) => e.key === "Escape" && setFilter("")}
-      className="
-        w-full
-        py-2.5 pl-10 pr-10
-        rounded-lg
-        bg-[var(--bg)]
-        text-[var(--text-color)]
-        placeholder-[var(--text-muted)]
-        border border-[var(--border-color)]
-        shadow-sm hover:shadow-md
-        focus:outline-none focus:ring-2 focus:ring-[var(--ring-color)]
-        transition-all duration-150
-        text-sm sm:text-base
-      "
-    />
-  </div>
-</div>
-{/* Search bar ends here */}
+      <SearchBar  
+        filter={filter}
+        setFilter={setFilter}
+      />
 
 
 

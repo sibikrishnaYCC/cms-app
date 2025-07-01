@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 /**
  * @param {boolean} isAnimating - whether the animation is running
  */
-export default function LoopingDistortedTitle({ isAnimating = true }) {
+export default function LoopingDistortedTitle({ isAnimating = false }) {
   const titleRef = useRef(null);
   const tlRef = useRef(null); // Store the timeline for control
 
