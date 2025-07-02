@@ -114,7 +114,7 @@ export default function MainInterface() {
       />
 
 
-      <div className="relative overflow-hidden h-[100vh]">
+      <div className="relative w-full overflow-x-hidden h-[100vh]">
    <AnimatePresence mode="wait">
   {activePage === null && (
     <motion.div
@@ -167,7 +167,7 @@ export default function MainInterface() {
           setDirection(-1);
           setActivePage(null);
         }} />,
-        StudentPerformance: <StudentPerformance onBack={() => {
+        StudentPerformance: <StudentPerformance theme={theme} onBack={() => {
           setDirection(-1);
           setActivePage(null);
         }} />,

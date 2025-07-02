@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Cards from "../Interface/Cards";
-import LoopingDistortedTitle from "../../Effects/LoopingDistortedTitle";
-import SearchBar from "../Navbar/SearchBar";
+import Cards from "../Interface/Cards.jsx";
+import LoopingDistortedTitle from "../../Effects/LoopingDistortedTitle.jsx";
+import SearchBar from "../Navbar/SearchBar.jsx";
 import assets from "../../assets/assets.js";
 
 export default function ContentSection({ animate,setActivePage }) {
