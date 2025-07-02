@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import StudentCard from "./StudentCard.jsx";
 import { motion, AnimatePresence } from "framer-motion";
-import SearchBar from "./searchBar.jsx";
+import SearchBar from "./PerfSearchBar.jsx";
 
 export default function StudentPerformance({ theme }) {
   const [loading, setLoading] = useState(true);

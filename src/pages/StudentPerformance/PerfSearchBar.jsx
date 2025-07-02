@@ -1,4 +1,4 @@
-export default function SearchBar({ filter, setFilter, theme = "light" }) {
+export default function PerfSearchBar({ filter, setFilter, theme = "light" }) {
   // 🌓 Theme-based styling
   const bgColor = theme === "dark" ? "bg-[#1e1e1e]" : "bg-white";
   const textColor = theme === "dark" ? "text-white" : "text-black";
