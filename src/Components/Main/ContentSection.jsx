@@ -20,7 +20,7 @@ export default function ContentSection({ animate,setActivePage }) {
   }, [filter]);
 
   return (
-    <div className="relative flex flex-col items-center gap-4 py-24 px-20 max-sm:py-20 max-sm:p-2">
+    <div className="relative flex flex-col w-screen items-center gap-4 py-24 px-20 max-sm:py-20 max-sm:p-2">
       <LoopingDistortedTitle isAnimating={animate} />
 
       <SearchBar filter={filter} setFilter={setFilter} />
