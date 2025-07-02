@@ -114,7 +114,7 @@ export default function MainInterface() {
       />
 
 
-      <div className="relative overflow-hidden w-full h-[100vh]">
+      <div className="relative overflow-hidden h-[100vh]">
    <AnimatePresence mode="wait">
   {activePage === null && (
     <motion.div
@@ -123,7 +123,7 @@ export default function MainInterface() {
       animate={{ x: 0 }}
       exit={{ x: "-100%" }}  // always exit left (ContentSection)
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="absolute w-full h-full"
+      className="absolute h-full"
       style={{ willChange: "transform" }}
     >
       <ContentSection
