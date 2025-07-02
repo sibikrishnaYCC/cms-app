@@ -13,11 +13,6 @@ export default function StudentPerformance({ theme }) {
   const cardRefs = useRef({});
   const originalOrderRef = useRef([]);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(timeout);
-  }, []);
-
   const students = [
     { id: 1, name: "Alice Johnson", role: "21147126", photo: "https://i.pravatar.cc/150?img=1" },
     { id: 2, name: "Brian Lee", role: "21147123", photo: "https://i.pravatar.cc/150?img=2" },
@@ -29,7 +24,7 @@ export default function StudentPerformance({ theme }) {
     { id: 8, name: "Henry Zhao", role: "21147134", photo: "https://i.pravatar.cc/150?img=8" },
     { id: 9, name: "Isabella Rossi", role: "21147135", photo: "https://i.pravatar.cc/150?img=9" },
     { id: 10, name: "Jack Wilson", role: "21147136", photo: "https://i.pravatar.cc/150?img=10" },
-     { id: 11, name: "Alice Johnson", role: "21147126", photo: "https://i.pravatar.cc/150?img=1" },
+    { id: 11, name: "Alice Johnson", role: "21147126", photo: "https://i.pravatar.cc/150?img=1" },
     { id: 12, name: "Brian Lee", role: "21147123", photo: "https://i.pravatar.cc/150?img=2" },
     { id: 13, name: "Chloe Patel", role: "21147119", photo: "https://i.pravatar.cc/150?img=3" },
     { id: 14, name: "David Kim", role: "21147130", photo: "https://i.pravatar.cc/150?img=4" },
@@ -40,6 +35,44 @@ export default function StudentPerformance({ theme }) {
     { id: 19, name: "Isabella Rossi", role: "21147135", photo: "https://i.pravatar.cc/150?img=9" },
     { id: 20, name: "Jack Wilson", role: "21147136", photo: "https://i.pravatar.cc/150?img=10" },
   ];
+
+  useEffect(() => {
+    let isCancelled = false;
+    let imageLoadCount = 0;
+    const totalImages = students.length;
+    let textLoaded = false;
+
+    const handleImageLoad = () => {
+      imageLoadCount++;
+      if (imageLoadCount === totalImages && textLoaded && !isCancelled) {
+        setLoading(false);
+      }
+    };
+
+    const imageElements = students.map((student) => {
+      const img = new Image();
+      img.src = student.photo;
+      img.onload = handleImageLoad;
+      img.onerror = handleImageLoad;
+      return img;
+    });
+
+    const textLoadTimeout = setTimeout(() => {
+      textLoaded = true;
+      if (imageLoadCount === totalImages && !isCancelled) {
+        setLoading(false);
+      }
+    }, 500);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(textLoadTimeout);
+      imageElements.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+    };
+  }, []);
 
   const filteredStudents = useMemo(() => {
     if (!filter.trim()) return students;
@@ -63,41 +96,45 @@ export default function StudentPerformance({ theme }) {
     const isOpening = activeId !== id;
 
     if (isOpening) {
-      // Save current order to restore later
       originalOrderRef.current = [...filteredStudents];
-
       setReordered(true);
       setActiveId(id);
       setChartReadyId(null);
 
-      // Wait a frame, then scroll into view
       setTimeout(() => {
-      const el = cardRefs.current[id];
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        const offset = window.scrollY + rect.top;
-        const headerOffset = 100; // adjust if you have sticky header, etc.
-        window.scrollTo({
-          top: offset - headerOffset,
-          behavior: "smooth",
-        });
-      }
-    }, 100);
+        const el = cardRefs.current[id];
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const offset = window.scrollY + rect.top;
+          const headerOffset = 100;
+          window.scrollTo({
+            top: offset - headerOffset,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
 
-
-      // After scroll completes, open the chart
       setTimeout(() => {
         setChartReadyId(id);
-      }, 500); // Adjust timing as needed
+      }, 500);
     } else {
       setChartReadyId(null);
-
       setTimeout(() => {
         setActiveId(null);
         setReordered(false);
-      }, 300); // Collapse before resetting order
+      }, 300);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <p className="text-lg font-semibold">Loading students...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-start items-center min-h-screen h-full space-y-6 p-4 sm:p-6">
