@@ -1,7 +1,7 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
-import ChartCard from "./ChartCard";
-import SubjectInput from "./SubjectInput";
+import ChartCard from "./ChartCard.jsx";
+import SubjectInput from "./SubjectInput.jsx";
 
 export default function StudentMarkCard({
   student,

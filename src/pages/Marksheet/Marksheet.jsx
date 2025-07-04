@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Plus, RotateCcw, RotateCw } from "lucide-react";
-import StudentMarkCard from "./StudentMarkCard";
+import StudentMarkCard from "./StudentMarkCard.jsx";
 
 export default function Marksheet({ theme = "light" }) {
   const [students, setStudents] = useState([
