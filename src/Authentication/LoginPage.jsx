@@ -1,17 +1,27 @@
 import React, { useState } from "react";
-import baseurl from "../../base";
 import { useNavigate } from "react-router-dom";
+import baseurl from "../../base";
 
-/**
- * Tailwind‑only login page – no external UI libraries
- */
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/Components/ui/card.jsx";
+import { Input } from "@/Components/ui/input.jsx";
+import { Label } from "@/Components/ui/label.jsx";
+import { Button } from "@/Components/ui/button.jsx";
+import { cn } from "@/lib/utils.js";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [shake, setShake] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,72 +38,108 @@ export default function LoginPage() {
 
       const data = await res.json();
       if (res.ok) {
-        navigate('/')
         setMessage("Login successful!");
+        navigate("/");
       } else {
         setMessage(data?.message ?? "Login failed.");
+        triggerShake();
       }
-    } catch (err) {
+    } catch {
       setMessage("Network error, please try again.");
+      triggerShake();
     } finally {
       setLoading(false);
     }
   };
 
+  const triggerShake = () => {
+    setShake(true);
+    setTimeout(() => setShake(false), 600);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100 p-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-        <h2 className="mb-6 text-center text-2xl font-semibold text-gray-800">Sign in</h2>
+    <div className="flex min-h-screen items-center justify-center bg-neutral-100 p-4">
+      <Card
+        className={cn(
+          "w-full max-w-md backdrop-blur-sm border border-neutral-200 shadow-2xl transition-all duration-300",
+          shake && "animate-shake"
+        )}
+      >
+        <CardHeader>
+          <CardTitle className="text-center text-3xl font-bold text-neutral-800">
+            Welcome Back
+          </CardTitle>
+          <p className="mt-1 text-center text-sm text-neutral-500">
+            Please enter your credentials
+          </p>
+        </CardHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email field */}
-          <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>
+          <CardContent className="space-y-4">
+            {/* Email */}
+            <div className="relative">
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="peer h-12 rounded-md border border-neutral-300 bg-white px-3 pt-6 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+                placeholder=" "
+              />
+              <Label
+                htmlFor="email"
+                className="absolute left-3 top-2 text-xs text-neutral-500 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs"
+              >
+                Email
+              </Label>
+            </div>
 
-          {/* Password field */}
-          <div>
-            <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>
+            {/* Password */}
+            <div className="relative">
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={6}
+                className="peer h-12 rounded-md border border-neutral-300 bg-white px-3 pt-6 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400"
+                placeholder=" "
+              />
+              <Label
+                htmlFor="password"
+                className="absolute left-3 top-2 text-xs text-neutral-500 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs"
+              >
+                Password
+              </Label>
+            </div>
+          </CardContent>
 
-          {/* Submit button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-indigo-600 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {loading ? "Signing in…" : "Sign in"}
-          </button>
+          <CardFooter className="flex flex-col gap-3">
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full transition-transform duration-200 hover:scale-[1.02] active:scale-95"
+              size="sm"
+            >
+              {loading ? "Signing in…" : "Sign in"}
+            </Button>
+            {message && (
+              <p
+                className={cn(
+                  "text-center text-sm",
+                  message.includes("success")
+                    ? "text-green-600"
+                    : "text-red-600"
+                )}
+              >
+                {message}
+              </p>
+            )}
+          </CardFooter>
         </form>
-
-        {/* Message */}
-        {message && (
-          <p className="mt-4 text-center text-sm text-red-600">{message}</p>
-        )}
-      </div>
+      </Card>
     </div>
   );
 }
