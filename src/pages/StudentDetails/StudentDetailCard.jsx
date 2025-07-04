@@ -108,31 +108,7 @@ export default function StudentDetailCard({ student }) {
           </div>
         </div>
 
-        <div className="flex gap-2">
-          {isEditing ? (
-            <>
-              <button
-                onClick={handleCancel}
-                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--text-color)] bg-transparent border border-[var(--border-color)] rounded-lg hover:bg-[var(--border-hover)] transition-colors"
-              >
-                <X className="w-4 h-4" /> Cancel
-              </button>
-              <button
-                onClick={handleSave}
-                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--bg)] bg-[var(--text-color)] rounded-lg hover:opacity-90 transition-opacity"
-              >
-                <Save className="w-4 h-4" /> Save
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--text-color)] bg-transparent border border-[var(--border-color)] rounded-lg hover:bg-[var(--border-hover)] transition-colors"
-            >
-              <Edit className="w-4 h-4" /> Edit
-            </button>
-          )}
-        </div>
+        
       </div>
 
       {/* Card Body */}
@@ -262,6 +238,33 @@ export default function StudentDetailCard({ student }) {
                 {student.status || "Active"}
               </div>
             </div>
+
+                <div className="flex gap-2">
+          {isEditing ? (
+            <>
+              <button
+                onClick={handleCancel}
+                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--text-color)] bg-transparent border border-[var(--border-color)] rounded-lg hover:bg-[var(--border-hover)] transition-colors"
+              >
+                <X className="w-4 h-4" /> Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--bg)] bg-[var(--text-color)] rounded-lg hover:opacity-90 transition-opacity"
+              >
+                <Save className="w-4 h-4" /> Save
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--text-color)] bg-transparent border border-[var(--border-color)] rounded-lg hover:bg-[var(--border-hover)] transition-colors"
+            >
+              <Edit className="w-4 h-4" /> Edit
+            </button>
+          )}
+        </div>  
+
           </div>
         </div>
       </div>
