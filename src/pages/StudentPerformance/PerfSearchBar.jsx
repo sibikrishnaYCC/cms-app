@@ -6,7 +6,7 @@ export default function PerfSearchBar({ filter, setFilter }) {
         placeholder="Search students by name or ID..."
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        className="w-full p-3 rounded-lg border focus:outline-none transition-all"
+        className="w-full p-3 rounded-lg border focus:outline-none transition-all placeholder-gray-400"
         style={{
           backgroundColor: "var(--bg)",
           borderColor: "var(--border-color)",
@@ -16,11 +16,6 @@ export default function PerfSearchBar({ filter, setFilter }) {
           WebkitTextFillColor: "var(--text-color)",
         }}
       />
-      <style jsx>{`
-        input::placeholder {
-          color: var(--muted-text);
-        }
-      `}</style>
     </div>
   );
 }
