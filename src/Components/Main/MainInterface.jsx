@@ -9,8 +9,8 @@ import StudentDetails from "../../pages/StudentDetails/StudentDetails.jsx";
 import AttendancePercentage from "../../pages/AttendancePercentage/AttendancePercentage.jsx";
 import StudentPerformance from "../../pages/StudentPerformance/StudentPerformance.jsx";
 import TimeTable from "../../pages/TimeTable/TimeTable.jsx";
-import QuestionAnswer from '../../pages/QuestionAnswer/QuestionAnswer.jsx';
-import Marksheet from '../../pages/Marksheet/Marksheet.jsx';
+import QuestionAnswer from "../../pages/QuestionAnswer/QuestionAnswer.jsx";
+import Marksheet from "../../pages/Marksheet/Marksheet.jsx";
 
 function Background() {
   return (
@@ -56,11 +56,40 @@ export default function MainInterface() {
   const [activePage, setActivePage] = useState(null);
   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
 
+  // Handle forward navigation and update browser history
+  const openPage = (page) => {
+    setDirection(1);
+    setActivePage(page);
+    history.pushState({ page }, "", `#${page}`);
+  };
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const onPopState = (e) => {
+      const page = e.state?.page ?? null;
+      setDirection(-1);
+      setActivePage(page);
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  // Load from deep link (e.g., #QuestionAnswer)
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      setActivePage(hash);
+    }
+  }, []);
+
+  // Save theme to local storage
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Asset loading
   useEffect(() => {
     let loadedCount = 0;
 
@@ -102,85 +131,79 @@ export default function MainInterface() {
       <Background />
       <TopNavBar
         theme={theme}
-        toggleTheme={() => setTheme(t => (t === "light" ? "dark" : "light"))}
+        toggleTheme={() => setTheme((t) => (t === "light" ? "dark" : "light"))}
         animate={animate}
-        toggleAnimate={() => setAnimate(a => !a)}
+        toggleAnimate={() => setAnimate((a) => !a)}
         activePage={activePage}
-        setActivePage={setActivePage}
+        setActivePage={openPage}
         onBack={() => {
           setDirection(-1);
           setActivePage(null);
         }}
       />
 
-
       <div className="relative w-full overflow-x-hidden h-[100vh]">
-   <AnimatePresence mode="wait">
-  {activePage === null && (
-    <motion.div
-      key="home"
-      initial={{ x: direction === -1 ? "-100%" : "0%" }} // when going back, enter from right (ContentSection)
-      animate={{ x: 0 }}
-      exit={{ x: "-100%" }}  // always exit left (ContentSection)
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="absolute h-full"
-      style={{ willChange: "transform" }}
-    >
-      <ContentSection
-        animate={animate}
-        setActivePage={(page) => {
-          setDirection(1); // forward
-          setActivePage(page);
-        }}
-      />
-    </motion.div>
-  )}
+        <AnimatePresence mode="wait">
+          {activePage === null && (
+            <motion.div
+              key="home"
+              initial={{ x: direction === -1 ? "-100%" : "0%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="absolute h-full"
+              style={{ willChange: "transform" }}
+            >
+              <ContentSection
+                animate={animate}
+                setActivePage={openPage}
+              />
+            </motion.div>
+          )}
 
-  {activePage !== null && (
-    <motion.div
-      key={activePage}
-      initial={{ x: "100%" }} // always enter activePage from right (100%)
-      animate={{ x: 0 }}
-      exit={{ x: "100%" }} // exit activePage to left (-100%) on backward (when direction === -1)
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="absolute w-full h-full "
-      style={{ willChange: "transform" }}
-    >
-      {{
-        CourseFile: <CourseFile theme={theme} onBack={() => {
-          setDirection(-1); // backward
-          setActivePage(null);
-        }} />,
-        QuestionAnswer: <QuestionAnswer onBack={() => {
-          setDirection(-1);
-          setActivePage(null);
-        }} />,
-        TimeTable: <TimeTable theme={theme} onBack={() => {
-          setDirection(-1);
-          setActivePage(null);
-        }} />,
-        Marksheet: <Marksheet theme={theme} onBack={() => {
-          setDirection(-1);
-          setActivePage(null);
-        }} />,
-        StudentDetails: <StudentDetails onBack={() => {
-          setDirection(-1);
-          setActivePage(null);
-        }} />,
-        StudentPerformance: <StudentPerformance theme={theme} onBack={() => {
-          setDirection(-1);
-          setActivePage(null);
-        }} />,
-        AttendancePercentage: <AttendancePercentage theme={theme} onBack={() => {
-          setDirection(-1);
-          setActivePage(null);
-        }} />,
-      }[activePage]}
-    </motion.div>
-  )}
-</AnimatePresence>
-
-
+          {activePage !== null && (
+            <motion.div
+              key={activePage}
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="absolute w-full h-full"
+              style={{ willChange: "transform" }}
+            >
+              {{
+                CourseFile: <CourseFile theme={theme} onBack={() => {
+                  setDirection(-1);
+                  setActivePage(null);
+                }} />,
+                QuestionAnswer: <QuestionAnswer onBack={() => {
+                  setDirection(-1);
+                  setActivePage(null);
+                }} />,
+                TimeTable: <TimeTable theme={theme} onBack={() => {
+                  setDirection(-1);
+                  setActivePage(null);
+                }} />,
+                Marksheet: <Marksheet theme={theme} onBack={() => {
+                  setDirection(-1);
+                  setActivePage(null);
+                }} />,
+                StudentDetails: <StudentDetails onBack={() => {
+                  setDirection(-1);
+                  setActivePage(null);
+                }} />,
+                StudentPerformance: <StudentPerformance theme={theme} onBack={() => {
+                  setDirection(-1);
+                  setActivePage(null);
+                }} />,
+                AttendancePercentage: <AttendancePercentage theme={theme} onBack={() => {
+                  setDirection(-1);
+                  setActivePage(null);
+                }} />,
+              }[activePage]}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
