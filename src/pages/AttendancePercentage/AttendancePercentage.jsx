@@ -1,15 +1,138 @@
-import { useNavigate } from "react-router-dom"
+import { useMemo, useState } from "react";
+import OverallStats from "./OverallStats.jsx";
+import StudentAttendanceAccordion from "./StudentAttendanceAccordion.jsx";
+import AttendanceSummaryCards from "./AttendanceSummaryCards.jsx";
+import PerfSearchBar from "../StudentPerformance/PerfSearchBar.jsx";
+
+function computeMonthlyData(students) {
+  const months = ["January", "February", "March", "April", "May", "June"];
+  return months.map((month, idx) => {
+    let total = 0;
+    let count = 0;
+    for (const s of students) {
+      if (s.monthly && s.monthly[idx] !== undefined) {
+        total += s.monthly[idx];
+        count++;
+      }
+    }
+    return {
+      month,
+      value: count ? Math.round(total / count) : 0,
+    };
+  });
+}
+
+function computeDailyDataMap(students) {
+  const months = [
+    ["January", 31],
+    ["February", 29],
+    ["March", 31],
+    ["April", 30],
+    ["May", 31],
+    ["June", 30],
+  ];
+
+  const result = {};
+
+  for (let i = 0; i < months.length; i++) {
+    const [month, daysInMonth] = months[i];
+    const daily = [];
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      let total = 0;
+      let count = 0;
+
+      for (const student of students) {
+        const monthlyVal = student.monthly?.[i];
+        if (monthlyVal !== undefined) {
+          const dayValue = monthlyVal + ((day % 5) - 2);
+          total += dayValue;
+          count++;
+        }
+      }
+
+      daily.push({
+        day,
+        value: count ? Math.round(total / count) : 0,
+      });
+    }
+
+    result[month] = daily;
+  }
+
+  return result;
+}
 
 export default function AttendancePercentage() {
+  const [students] = useState([
+    {
+      id: "1",
+      name: "Alice Johnson",
+      total: 60,
+      present: 54,
+      absent: 6,
+      percentage: 90,
+      monthly: [92, 88, 85, 91, 94, 90],
+    },
+    {
+      id: "2",
+      name: "Bob Smith",
+      total: 60,
+      present: 42,
+      absent: 18,
+      percentage: 70,
+      monthly: [70, 68, 72, 65, 69, 76],
+    },
+    {
+      id: "3",
+      name: "Cynthia Lee",
+      total: 60,
+      present: 58,
+      absent: 2,
+      percentage: 97,
+      monthly: [95, 98, 96, 99, 97, 96],
+    },
+  ]);
 
-    const navigate = useNavigate()
+  const [filter, setFilter] = useState(""); // 🆕 Search filter state
+  const monthlyData = useMemo(() => computeMonthlyData(students), [students]);
+  const dailyDataMap = useMemo(() => computeDailyDataMap(students), [students]);
+  const below75 = useMemo(
+    () => students.filter((s) => s.percentage < 75),
+    [students]
+  );
+  const [showLow, setShowLow] = useState(false);
 
-    return (
-        <div className="flex flex-col justify-center items-center h-screen gap-3">
-                <h1>This is Attendance Percentage Page</h1>
+  return (
+    <div className="flex flex-col gap-6 px-4 max-w-6xl mx-auto mt-[10vh]">
+      
+      <h1 className="text-4xl font-semibold text-center mt-2 max-sm:text-3xl">Student Attendance Dashboard</h1>
+      
+      <OverallStats
+        monthlyData={monthlyData}
+        dailyDataMap={dailyDataMap}
+        onShowBelow75={() => setShowLow(!showLow)}
+      />
 
-                <button onClick={() => navigate('/')} className="border p-4 rounded hover:rounded-lg cursor-pointer hover:bg-black hover:text-white">Back To Home</button>
-        
+      <AttendanceSummaryCards students={students} />
+
+
+        <div className="flex justify-center">
+      <PerfSearchBar filter={filter} setFilter={setFilter} />
+
         </div>
-    )
+
+      {showLow && (
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold">Students Below 75%</h2>
+          <StudentAttendanceAccordion students={below75} searchFilter={filter} />
+        </div>
+      )}
+
+      <div className="space-y-4 mb-4">
+        <h2 className="text-xl font-semibold">All Students</h2>
+        <StudentAttendanceAccordion students={students} searchFilter={filter} />
+      </div>
+    </div>
+  );
 }

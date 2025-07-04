@@ -6,7 +6,7 @@ export default function PerfSearchBar({ filter, setFilter, theme = "light" }) {
   const placeholderColor = theme === "dark" ? "placeholder-gray-400" : "placeholder-gray-500";
 
   return (
-    <div className="w-full max-w-2xl mb-4">
+    <div className="w-full max-w-2xl">
       <input
         type="text"
         placeholder="Search students by name or ID..."
