@@ -8,18 +8,15 @@ import {
 } from "recharts";
 import { useState, useRef, useEffect, memo } from "react";
 
-const COLORS = ["#16a34a", "#dc2626"]; // Present • Absent
+const COLORS = ["#2d1bd1", "#d11b3c"]; // Present • Absent
 
-/**
- * ─────────────────────────────────────────────────────────────
- *  Row component for ONE student ─ keeps hooks outside loops
- * ─────────────────────────────────────────────────────────────
- */
+// ─────────────────────────────
+// One student row
+// ─────────────────────────────
 const StudentRow = memo(function StudentRow({ student, isOpen, onToggle }) {
   const contentRef = useRef(null);
   const [height, setHeight] = useState(0);
 
-  // Expand / collapse animation
   useEffect(() => {
     if (isOpen && contentRef.current) {
       setHeight(contentRef.current.scrollHeight);
@@ -37,7 +34,13 @@ const StudentRow = memo(function StudentRow({ student, isOpen, onToggle }) {
   ];
 
   return (
-    <div className="border border-gray-200 rounded-lg bg-white shadow-sm hover:bg-gray-50 transition-colors">
+    <div
+      className="border rounded-lg shadow-sm transition-colors hover:opacity-95"
+      style={{
+        backgroundColor: "var(--bg)",
+        borderColor: "var(--border-color)",
+      }}
+    >
       {/* Trigger */}
       <button
         onClick={onToggle}
@@ -45,25 +48,42 @@ const StudentRow = memo(function StudentRow({ student, isOpen, onToggle }) {
         className="w-full px-4 py-3 flex justify-between items-center text-left"
       >
         <div>
-          <div className="text-sm font-medium text-gray-900">{name}</div>
-          <div className="text-xs text-gray-500">Attendance: {percentage}%</div>
+          <div
+            className="text-sm font-medium"
+            style={{ color: "var(--text-color)" }}
+          >
+            {name}
+          </div>
+          <div
+            className="text-xs"
+            style={{ color: "var(--muted-text)" }}
+          >
+            Attendance: {percentage}%
+          </div>
         </div>
         <ChevronDown
-          className={`h-4 w-4 text-gray-500 transform transition-transform duration-300 ${
+          className={`h-4 w-4 transform transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
           }`}
+          style={{ color: "var(--muted-text)" }}
         />
       </button>
 
-      {/* Animated content */}
+      {/* Expandable Content */}
       <div
         ref={contentRef}
         className="overflow-hidden transition-all duration-500 ease-in-out"
         style={{ height }}
       >
-        <div className="px-4 pb-4 pt-2 bg-gray-50 border-t border-gray-100">
+        <div
+          className="px-4 pb-4 pt-2 border-t"
+          style={{
+            backgroundColor: "var(--card-inner-bg)",
+            borderColor: "var(--border-color)",
+          }}
+        >
           <div className="flex flex-col lg:flex-row gap-6 items-center">
-            {/* Doughnut chart */}
+            {/* Chart */}
             <div className="w-full h-52 lg:w-1/2">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -82,15 +102,26 @@ const StudentRow = memo(function StudentRow({ student, isOpen, onToggle }) {
                       />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "var(--bg)",
+                      color: "var(--text-color)",
+                      border: "none",
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
 
             {/* Stats */}
-            <div className="w-full lg:w-1/2 space-y-2 text-sm text-gray-700">
+            <div
+              className="w-full lg:w-1/2 space-y-2 text-sm"
+              style={{ color: "var(--text-muted)" }}
+            >
               <div className="flex justify-between">
-                <span className="font-medium">Total Classes:</span>
+                <span className="font-medium" style={{ color: "var(--text-color)" }}>
+                  Total Classes:
+                </span>
                 <span>{total}</span>
               </div>
               <div className="flex justify-between">
@@ -101,7 +132,13 @@ const StudentRow = memo(function StudentRow({ student, isOpen, onToggle }) {
                 <span className="font-medium text-red-600">Absent:</span>
                 <span>{absent}</span>
               </div>
-              <div className="flex justify-between font-semibold text-gray-900 border-t pt-2">
+              <div
+                className="flex justify-between font-semibold border-t pt-2"
+                style={{
+                  color: "var(--text-color)",
+                  borderColor: "var(--border-color)",
+                }}
+              >
                 <span>Attendance Rate:</span>
                 <span>{percentage}%</span>
               </div>
@@ -113,12 +150,13 @@ const StudentRow = memo(function StudentRow({ student, isOpen, onToggle }) {
   );
 });
 
-/**
- * ─────────────────────────────────────────────────────────────
- *  Accordion wrapper for all students
- * ─────────────────────────────────────────────────────────────
- */
-export default function StudentAttendanceAccordion({ students = [], searchFilter = "" }) {
+// ─────────────────────────────
+// Wrapper for all students
+// ─────────────────────────────
+export default function StudentAttendanceAccordion({
+  students = [],
+  searchFilter = "",
+}) {
   const [openIds, setOpenIds] = useState([]);
 
   const toggleItem = (id) =>
@@ -135,7 +173,11 @@ export default function StudentAttendanceAccordion({ students = [], searchFilter
   });
 
   if (filteredStudents.length === 0) {
-    return <p className="text-sm text-gray-500">No matching students found.</p>;
+    return (
+      <p className="text-sm" style={{ color: "var(--muted-text)" }}>
+        No matching students found.
+      </p>
+    );
   }
 
   return (

@@ -3,6 +3,7 @@ import OverallStats from "./OverallStats.jsx";
 import StudentAttendanceAccordion from "./StudentAttendanceAccordion.jsx";
 import AttendanceSummaryCards from "./AttendanceSummaryCards.jsx";
 import PerfSearchBar from "../StudentPerformance/PerfSearchBar.jsx";
+import { motion } from "framer-motion";
 
 function computeMonthlyData(students) {
   const months = ["January", "February", "March", "April", "May", "June"];
@@ -62,8 +63,7 @@ function computeDailyDataMap(students) {
 
   return result;
 }
-
-export default function AttendancePercentage() {
+export default function AttendancePercentage({ theme }) {
   const [students] = useState([
     {
       id: "1",
@@ -94,45 +94,93 @@ export default function AttendancePercentage() {
     },
   ]);
 
-  const [filter, setFilter] = useState(""); // 🆕 Search filter state
+  const [filter, setFilter] = useState("");
   const monthlyData = useMemo(() => computeMonthlyData(students), [students]);
   const dailyDataMap = useMemo(() => computeDailyDataMap(students), [students]);
-  const below75 = useMemo(
-    () => students.filter((s) => s.percentage < 75),
-    [students]
-  );
+  const below75 = useMemo(() => students.filter((s) => s.percentage < 75), [students]);
   const [showLow, setShowLow] = useState(false);
+
+  const fadeUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+  };
 
   return (
     <div className="flex flex-col gap-6 px-4 max-w-6xl mx-auto mt-[10vh]">
-      
-      <h1 className="text-4xl font-semibold text-center mt-2 max-sm:text-3xl">Student Attendance Dashboard</h1>
-      
-      <OverallStats
-        monthlyData={monthlyData}
-        dailyDataMap={dailyDataMap}
-        onShowBelow75={() => setShowLow(!showLow)}
-      />
+      <motion.h1
+        className="text-4xl font-semibold text-center mt-2 max-sm:text-3xl"
+        variants={fadeUp}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 0.5 }}
+      >
+        Student Attendance Dashboard
+      </motion.h1>
 
-      <AttendanceSummaryCards students={students} />
+      <motion.div
+        variants={fadeUp}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <OverallStats
+          monthlyData={monthlyData}
+          dailyDataMap={dailyDataMap}
+          onShowBelow75={() => setShowLow(!showLow)}
+          theme={theme}
+        />
+      </motion.div>
 
+      <motion.div
+        variants={fadeUp}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <AttendanceSummaryCards theme={theme} students={students} />
+      </motion.div>
 
-        <div className="flex justify-center">
-      <PerfSearchBar filter={filter} setFilter={setFilter} />
-
-        </div>
+      <motion.div
+        className="flex justify-center"
+        variants={fadeUp}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <PerfSearchBar theme={theme} filter={filter} setFilter={setFilter} />
+      </motion.div>
 
       {showLow && (
-        <div className="space-y-4">
+        <motion.div
+          className="space-y-4"
+          variants={fadeUp}
+          initial="initial"
+          animate="animate"
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           <h2 className="text-xl font-semibold">Students Below 75%</h2>
-          <StudentAttendanceAccordion students={below75} searchFilter={filter} />
-        </div>
+          <StudentAttendanceAccordion
+            theme={theme}
+            students={below75}
+            searchFilter={filter}
+          />
+        </motion.div>
       )}
 
-      <div className="space-y-4 mb-4">
+      <motion.div
+        className="space-y-4 mb-4"
+        variants={fadeUp}
+        initial="initial"
+        animate="animate"
+        transition={{ duration: 0.5, delay: 0.5 }}
+      >
         <h2 className="text-xl font-semibold">All Students</h2>
-        <StudentAttendanceAccordion students={students} searchFilter={filter} />
-      </div>
+        <StudentAttendanceAccordion
+          theme={theme}
+          students={students}
+          searchFilter={filter}
+        />
+      </motion.div>
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function StudentRadarChart({ theme = "light" }) {
   const classColor = theme === "dark" ? "#10B981" : "#34D399";   // emerald-500 vs emerald-400
   const gridColor = theme === "dark" ? "#333" : "#e5e7eb";        // dark vs gray-200
   const textColor = theme === "dark" ? "#e5e5e5" : "#1f2937";     // light vs gray-800
-  const cardBg = theme === "dark" ? "bg-[#1e1e1e]" : "bg-white";
+  const cardBg = theme === "dark" ? "bg-[#182740]" : "bg-white";
   const cardText = theme === "dark" ? "text-white" : "text-black";
   const subText = theme === "dark" ? "text-gray-400" : "text-gray-600";
   const mutedText = theme === "dark" ? "text-gray-400" : "text-muted-foreground";

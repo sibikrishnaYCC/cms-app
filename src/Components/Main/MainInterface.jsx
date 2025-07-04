@@ -171,7 +171,7 @@ export default function MainInterface() {
           setDirection(-1);
           setActivePage(null);
         }} />,
-        AttendancePercentage: <AttendancePercentage onBack={() => {
+        AttendancePercentage: <AttendancePercentage theme={theme} onBack={() => {
           setDirection(-1);
           setActivePage(null);
         }} />,

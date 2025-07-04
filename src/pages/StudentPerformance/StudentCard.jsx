@@ -8,16 +8,17 @@ export default function StudentCard({
   showCharts,
   onToggle,
   loading,
-  theme,
+  theme
 }) {
-  // 🌓 Theme-based styles
-  const bgColor = theme === "dark" ? "bg-[#1e1e1e]" : "bg-white";
-  const textColor = theme === "dark" ? "text-white" : "text-gray-900";
-  const subTextColor = theme === "dark" ? "text-gray-400" : "text-gray-600";
-  const borderColor = theme === "dark" ? "border-gray-700" : "border-gray-200";
-
   return (
-    <div className={`border rounded-2xl shadow p-4 ${bgColor} ${textColor} ${borderColor}`}>
+    <div
+      className="border rounded-2xl shadow p-4"
+      style={{
+        backgroundColor: "var(--bg)",
+        color: "var(--text-color)",
+        borderColor: "var(--border-color)",
+      }}
+    >
       <button
         onClick={onToggle}
         className="flex items-center justify-between w-full cursor-pointer focus:outline-none rounded-lg"
@@ -30,7 +31,10 @@ export default function StudentCard({
           />
           <div className="text-left">
             <p className="font-semibold text-lg">{student.name}</p>
-            <p className={`text-sm ${subTextColor}`}>
+            <p
+              className="text-sm"
+              style={{ color: "var(--muted-text)" }}
+            >
               Role No. {student.role}
             </p>
           </div>
@@ -47,9 +51,9 @@ export default function StudentCard({
       <AnimatePresence initial={false}>
         {isActive && (
           <StudentChartPanel
+            theme={theme}
             showCharts={showCharts}
             loading={loading}
-            theme={theme}
           />
         )}
       </AnimatePresence>

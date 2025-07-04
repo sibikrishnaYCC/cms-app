@@ -1,10 +1,4 @@
-export default function PerfSearchBar({ filter, setFilter, theme = "light" }) {
-  // 🌓 Theme-based styling
-  const bgColor = theme === "dark" ? "bg-[#1e1e1e]" : "bg-white";
-  const textColor = theme === "dark" ? "text-white" : "text-black";
-  const borderColor = theme === "dark" ? "border-gray-700" : "border-gray-300";
-  const placeholderColor = theme === "dark" ? "placeholder-gray-400" : "placeholder-gray-500";
-
+export default function PerfSearchBar({ filter, setFilter }) {
   return (
     <div className="w-full max-w-2xl">
       <input
@@ -12,8 +6,21 @@ export default function PerfSearchBar({ filter, setFilter, theme = "light" }) {
         placeholder="Search students by name or ID..."
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        className={`w-full p-3 rounded-lg border ${borderColor} ${bgColor} ${textColor} ${placeholderColor} focus:outline-none transition-all`}
+        className="w-full p-3 rounded-lg border focus:outline-none transition-all"
+        style={{
+          backgroundColor: "var(--bg)",
+          borderColor: "var(--border-color)",
+          color: "var(--text-color)",
+          /* placeholder text color */
+          /* Safari / Chrome */
+          WebkitTextFillColor: "var(--text-color)",
+        }}
       />
+      <style jsx>{`
+        input::placeholder {
+          color: var(--muted-text);
+        }
+      `}</style>
     </div>
   );
 }
