@@ -22,7 +22,7 @@ export default function QuestionAnswer({ theme = "light" }) {
   const removeFile = (index) => setQaFiles(qaFiles.filter((_, i) => i !== index));
 
   return (
-    <div className="flex flex-col items-center gap-6 min-h-screen pt-[10vh] pb-20">
+    <div className="min-h-screen flex flex-col items-center pt-4 sm:pt-8 mt-[10vh] gap-6">
       <h1
         className="text-xl max-sm:text-base font-bold drop-shadow-sm"
         style={{ color: "var(--text-color)" }}
@@ -58,7 +58,7 @@ export default function QuestionAnswer({ theme = "light" }) {
       </Card>
 
       {/* ◁ File List ▷ */}
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4 sm:gap-5 w-[95%] sm:w-5/6 md:w-2/3 xl:w-1/2">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4 sm:gap-5 w-[95%] sm:w-5/6 md:w-2/3 xl:w-1/2 ">
         {qaFiles.map((file, idx) => (
           <Card
             key={idx}

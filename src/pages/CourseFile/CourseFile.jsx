@@ -25,7 +25,7 @@ export default function CourseFile({ theme = "light" }) {
   const removeFile = (index) => setFiles(files.filter((_, i) => i !== index));
 
   return (
-    <div className="flex flex-col items-center gap-6 min-h-screen pt-[10vh] pb-20">
+    <div className="min-h-screen flex flex-col items-center pt-4 sm:pt-8 mt-[10vh] gap-6 pb-20">
       <h1
         className="text-xl max-sm:text-base font-bold drop-shadow-sm"
         style={{ color: "var(--text-color)" }}

@@ -41,7 +41,7 @@ export default function StudentDetails() {
   });
 
   return (
-    <div className="flex flex-col items-center px-4 mt-[10vh] gap-6">
+    <div className="min-h-screen flex flex-col items-center pt-4 sm:pt-8 mt-[10vh] px-4 gap-6">
       <h1 className="text-2xl font-semibold">Student Details</h1>
 
       {/* ⬅️  Pass the props */}
