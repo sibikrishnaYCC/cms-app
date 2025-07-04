@@ -147,7 +147,7 @@ export default function MainInterface() {
       style={{ willChange: "transform" }}
     >
       {{
-        CourseFile: <CourseFile onBack={() => {
+        CourseFile: <CourseFile theme={theme} onBack={() => {
           setDirection(-1); // backward
           setActivePage(null);
         }} />,
@@ -155,7 +155,7 @@ export default function MainInterface() {
           setDirection(-1);
           setActivePage(null);
         }} />,
-        TimeTable: <TimeTable onBack={() => {
+        TimeTable: <TimeTable theme={theme} onBack={() => {
           setDirection(-1);
           setActivePage(null);
         }} />,
