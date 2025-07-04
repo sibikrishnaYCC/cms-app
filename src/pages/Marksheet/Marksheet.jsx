@@ -73,7 +73,7 @@ export default function Marksheet({ theme = "light" }) {
   return (
     <div
       data-theme={theme}
-      className="min-h-screen flex flex-col items-center mt-[10vh] px-3 gap-6 pb-24"
+      className="min-h-screen flex flex-col items-center pt-4 sm:pt-8 mt-[10vh] px-3 gap-6 pb-24"
       style={{ color: "var(--text-color)" }}
     >
       <h1 className="text-xl font-bold">Professor's Marksheet</h1>
