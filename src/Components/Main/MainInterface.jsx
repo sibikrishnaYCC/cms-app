@@ -159,7 +159,7 @@ export default function MainInterface() {
           setDirection(-1);
           setActivePage(null);
         }} />,
-        Marksheet: <Marksheet onBack={() => {
+        Marksheet: <Marksheet theme={theme} onBack={() => {
           setDirection(-1);
           setActivePage(null);
         }} />,

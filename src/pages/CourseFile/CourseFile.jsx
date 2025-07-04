@@ -3,17 +3,7 @@ import { Button } from "@/Components/ui/button.jsx";
 import { Card, CardContent } from "@/Components/ui/card.jsx";
 import { Upload, FileText, X } from "lucide-react";
 
-/**
- * CourseFile (React JSX) ─ themed + ultra‑mobile friendly (< 400 px)
- * ------------------------------------------------------------------
- * ➊ Accepts a `theme` prop ("light" | "dark") – matching the pattern
- *    you use elsewhere so colours derive from CSS variables like:
- *      --bg, --border-color, --text-color, --muted-text
- * ➋ Small‑screen tweaks – narrow widths & compact spacing so the
- *    interface fits on very small phones without horizontal scroll.
- * ➌ Still completely stateless WRT uploads – swap `setFiles` with your
- *    upload handler when you integrate backend / storage.
- */
+
 export default function CourseFile({ theme = "light" }) {
   const isDark = theme === "dark";
 
